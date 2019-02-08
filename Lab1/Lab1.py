@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb  7 15:18:56 2019
-
+Course 2302(Data Structures)
+Instructor: Olac Fuentes
+Teaching Assistant: Anithdita Nath
+Lab 1
+Last Edited on Thu, Feb  7, 2019
 @author: Seth
 """
 
