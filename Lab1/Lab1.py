@@ -89,7 +89,7 @@ def draw_circles3(ax,n,center,radius):
 
 
 
-
+#the following are all instances in which i call the above functions to draw the images asked of us 
 
 plt.close("all") 
 ogSize = 500
