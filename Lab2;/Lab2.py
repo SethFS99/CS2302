@@ -4,7 +4,7 @@ Course 2302(Data Structures)
 Instructor: Olac Fuentes
 Teaching Assistant: Anithdita Nath
 Lab 2
-Last Edited on ###################################### 2019
+Last Edited on 2.22.2019
 @author: Seth
 """
 
