@@ -88,7 +88,7 @@ def FindAndPrint(T,k):
     else:
         print(k,'not found')
 def IterativeSearch(T, k):
-    while T != None:
+    while T != None:#goes through tree using a loop rather recursion searching for item k
         if T.item == k:
             print('Item', k, 'found')
             return T
@@ -96,6 +96,7 @@ def IterativeSearch(T, k):
             T = T.right
         else:
             T = T.left
+    #only reached if k is not in tree
     print('Item', k ,'not found')
     return None
 def BuildBalancedT(T, A):
@@ -104,7 +105,7 @@ def BuildBalancedT(T, A):
     if len(A) == 1:
         T.item = A[0]
         return T
-    if len(A) == 2:
+    if len(A) == 2:#This case was made to solve previous issues during testing where tree would not form correctly
         T.item = A[0]
         if A[1] > T.item:
             T.right = BST(A[1])
@@ -113,19 +114,20 @@ def BuildBalancedT(T, A):
         return T
     mid = len(A)//2
     T.item = A[mid]
-    T.left = BST(A)
-    T.right = BST(A)
+    T.left = BST(A)#makes T.left a BST object
+    T.right = BST(A)#makes T.right a BST object
     T.left = BuildBalancedT(T.left, A[:mid])
-    T.right = BuildBalancedT(T.right, A[mid+1:])
+    T.right = BuildBalancedT(T.right, A[mid+1:])#builds upon tree and returns values to T.left and T.right
     return T
 def TreeToList(T):
     if T == None:
         return []
-    A = []
-    L = [T.item]
+    A = []#Creates empty native list
+    L = [T.item]#turns T.item into a native list object
     A = A + TreeToList(T.left)
     A = A + L
-    A = A + TreeToList(T.right)
+    A = A + TreeToList(T.right)#previous 3 lines concatenates lists 
+    
     return A
 def PrintAtDepth(T, d):
     if T is None:
@@ -142,36 +144,32 @@ def PrintAtDepth(T, d):
     return Check1
 
 
-def circle(center,rad):
+def circle(center,rad):#makes a circle
     n = int(4*rad*math.pi)
     t = np.linspace(0,6.3,n)
     x = center[0]+rad*np.sin(t)
     y = center[1]+rad*np.cos(t)
     return x,y
-def draw_circles(ax,center,radius):
+def draw_circles(ax,center,radius):#draws circles
         x,y = circle(center,radius)
         ax.plot(x,y,color='k')
         
         #cuts each circle in half of current radius
 def draw_tree(ax, v, Dx, Dy, radius, nextCenter, T):
     if T is not None:
-        Lbranch = np.array([[v[0]- radius /2 , v[1] -radius *.87 ] , [v[0] - Dx ,v[1] - Dy], [v[0]- radius/2, v[1] - radius * .87 ]])
-        Rbranch = np.array([[v[0] + radius / 2, v[1] - radius *.87], [v[0] + Dx , v[1] - Dy],[v[0] + radius/2, v[1]- radius * .87]])
+        Lbranch = np.array([[v[0]- radius /2 , v[1] -radius *.87 ] , [v[0] - Dx ,v[1] - Dy], [v[0]- radius/2, v[1] - radius * .87 ]])#modifications to v[0] and v[1] were found by testing, the point v[0] needs to be moved out half the radius from the center
+        Rbranch = np.array([[v[0] + radius / 2, v[1] - radius *.87], [v[0] + Dx , v[1] - Dy],[v[0] + radius/2, v[1]- radius * .87]])#this was found by examining the image with the cursor, and v[1] needs to move down radius *.87 which was found by examining the image again and various adjustments 
         #^Code above saves current vertex and the end points of the other two branches by taking off how man Dx units moved to the left or right and how many Dy units down
-
 
         if T.left != None:
             ax.plot(Lbranch[:,0],Lbranch[:,1] , color = 'k')#draws left branches if a node exists
         if T.right != None:
             ax.plot(Rbranch[:,0],Rbranch[:,1] , color = 'k')#draws right branches if a node exists next
         
-        
-        
         draw_circles(ax,[v[0] , nextCenter[1]],radius)#draws node
         nextCenter = [v[0], v[1]- radius - Dy]
         s = str(T.item)
         ax.text(v[0]- radius *.6,v[1] - radius *.2, s , fontdict = None, withdash = False)#prints T.item inside circles, the movement of x y values were found through experimentation of what visually looked most centered
-        
         
         vL = np.array([Lbranch[1, 0], Lbranch[1, 1] - radius])#left vertex's corodinates
         vR = np.array([Rbranch[1, 0], Rbranch[1, 1] - radius])#right vertex's corodinates
@@ -187,7 +185,8 @@ T = None
 A = [10,4,15,2,8,12,18,1,3,5,9,7, 13, 40, 41, 45, 11, 14]
 for a in A:
     T = Insert(T,a)
-
+#^^ forms tree T
+    
 plt.close('all')
 v = np.array([0,0])
 r = 20
